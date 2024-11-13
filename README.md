@@ -1,46 +1,133 @@
-# Getting Started with Create React App
+Here’s a README file for the frontend of your Book Exchange Platform project:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+# ShelfTrade Frontend Documentation
 
-In the project directory, you can run:
+## Table of Contents
+1. [Project Overview](#project-overview)
+2. [System Architecture](#system-architecture)
+3. [Tech Stack](#tech-stack)
+4. [Getting Started](#getting-started)
+   - [Prerequisites](#prerequisites)
+   - [Installation](#installation)
+   - [Environment Variables](#environment-variables)
+5. [Project Structure](#project-structure)
+6. [Components](#components)
+7. [API Integration](#api-integration)
+8. [Authentication](#authentication)
+9. [Error Handling](#error-handling)
+10. [Deployment](#deployment)
+11. [Security](#security)
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Project Overview
+The ShelfTrade Frontend is a React TypeScript application designed for users to explore and participate in book exchanges. This interface allows users to search for books, manage their own books, and interact with other users’ listings on the platform. It connects to a .NET Web API backend for data management and authentication.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## System Architecture
+The frontend architecture includes the following components:
+- **Authentication Management**: Handles login, registration, and token-based user session management.
+- **Book Management**: Allows users to add, edit, delete, and search for books.
+- **UI and Styling**: Clean, inline styles are applied directly within components, ensuring a modern, minimal design.
+- **Routing**: Uses `react-router-dom` for navigating between pages.
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Tech Stack
+- **Framework**: React with TypeScript
+- **Routing**: `react-router-dom` for navigation
+- **State Management**: React’s `useState` and `useContext` for managing global states (e.g., authentication).
+- **UI Styling**: Inline styles within components
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Getting Started
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Prerequisites
+- Node.js (v14 or higher recommended)
+- npm or yarn package manager
+- A running instance of the ShelfTrade Backend for API connectivity
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Installation
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/your-username/ShelfTrade-Frontend.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd ShelfTrade-Frontend
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Start the development server:
+   ```bash
+   npm start
+   ```
 
-### `npm run eject`
+### Environment Variables
+Create a `.env` file in the root directory and define the following variable:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```plaintext
+REACT_APP_API_BASE_URL="http://localhost:7004/api"
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Project Structure
+The main files and folders are structured as follows:
+- `src`
+  - `components/` - Contains reusable UI components (e.g., Login, Register, Dashboard, AddBook, ViewBooks).
+  - `pages/` - Contains main pages like Dashboard, Login, Register.
+  - `contexts/` - Holds context files, including AuthContext for authentication management.
+  - `App.tsx` - Main component rendering routes and initializing the app.
+  - `index.tsx` - Entry point for the React app.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+---
 
-## Learn More
+## Components
+- **Login**: Manages user authentication with email and password fields.
+- **Register**: Provides user registration with fields like name, email, password, favorite genre, and reading preferences.
+- **Dashboard**: Displays available books, search functionality, and filter options.
+- **AddBook**: Form for adding new books, fetching `userId` and `Authorization token` from `AuthContext`.
+- **ViewBooks**: Allows users to see and manage their added books.
+  
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## API Integration
+API requests are made to the ShelfTrade Backend using fetch requests with headers for Authorization. Common API endpoints:
+- **Authentication**: `/api/auth/register`, `/api/auth/login`
+- **Books Management**: `/api/books`, `/api/books/excludeUser/{userId}` for fetching books except those by the current user.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Each request includes an Authorization header with the JWT token when authenticated.
+
+---
+
+## Authentication
+- **JWT Token**: Tokens are received upon login and stored in `AuthContext` for secure API calls.
+- **AuthContext**: Provides authentication status and token to components, managing user sessions.
+
+---
+
+## Error Handling
+- **User Feedback**: Error messages for login, registration, and book actions are displayed to users.
+- **API Error Handling**: Catches server errors and displays relevant messages, prompting users to retry or adjust input.
+
+---
+
+## Deployment
+1. **Build the Project**:
+   ```bash
+   npm run build
+   ```
+2. **Deploy the Build**: Host the build folder on a static server (e.g., AWS S3, GitHub Pages, Vercel).
+3. **Configure Environment Variables**: Ensure the API base URL in `.env` matches the backend server address.
+
+---
+
+## Security
+- **JWT Authentication**: Uses Bearer tokens for API requests, preventing unauthorized access.
+- **Environment Variables**: API URLs and other sensitive data are stored in `.env` to avoid exposure.
+- **HTTPS**: Recommended for production deployment to ensure secure communication with the backend.
